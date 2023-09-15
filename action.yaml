@@ -1,0 +1,32 @@
+name: 'setup-compiler'
+description: 'Download and Deploy a compiler'
+inputs:
+  compiler:
+    description: 'compiler choice (gcc or clang)'
+    type: choice
+    options:
+    - gcc
+    - clang
+  triple:
+    description: 'target triple (e.g. arm-none-eabi)'
+    type: string
+    required: true
+  ref:
+    description:  'compiler version (this may depends on the compiler provider)'
+    type: string
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: 'Fetch compiler ${{ inputs.triple }}-${{ inputs.compiler }} ${{ inputs.ref }}'
+      if: ${{ inputs.compiler == 'gcc' }} && ${{ inputs.triple == 'arm-none-eabi' }}
+      uses: embedded-devops/action-setup-compiler/arm-none-eabi-gcc@main
+      with:
+        ref: ${{ inputs.ref }}
+
+    - name: Link toolchain dir to predictable path in container
+      run: |
+        source=$(dirname $TOOLCHAIN_PATH)
+        ln -s $source /opt/${{ inputs.triple }}
+      shell: bash

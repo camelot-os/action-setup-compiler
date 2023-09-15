@@ -1,0 +1,16 @@
+name: 'setup-arm-none-eabi-gcc-compiler'
+description: 'Download and Deploy an arm-none-eabi-gcc compiler'
+inputs:
+  ref:
+    type: string
+    description: 'toolchain version to download'
+    required: true
+    default: '<undefined>'
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Arm GNU Toolchain (arm-none-eabi-gcc)
+      uses: carlosperate/arm-none-eabi-gcc-action@v1
+      with:
+        release: ${{ inputs.ref }}
+        path-env-var: TOOLCHAIN_PATH
