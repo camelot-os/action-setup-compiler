@@ -25,7 +25,7 @@ runs:
       with:
         ref: ${{ inputs.ref }}
 
-    - name: 'Fetch compiler ${{ inputs.triple }}-${{ inputs.compiler }} ${{ inputs.ref }}'
+    - name: 'Fetch clang compiler for target ${{ inputs.triple }}, ${{ inputs.ref }}'
       if: ${{ inputs.compiler == 'clang' }} && ${{ inputs.triple == 'arm-none-eabi' }}
       uses: embedded-devops/action-setup-compiler/llvm-embedded-toolchain-for-arm@main
       with:
