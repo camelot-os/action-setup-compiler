@@ -1,0 +1,16 @@
+name: 'setup-arm-none-eabi-llvm-compiler'
+description: 'Download and Deploy an arm-none-eabi llvm compiler'
+inputs:
+  ref:
+    type: string
+    description: 'toolchain version to download'
+    required: true
+    default: '<undefined>'
+runs:
+  using: 'composite'
+  steps:
+    - name: Install LLVM toolchain for Arm
+      uses: stellar-aria/llvm-embedded-toolchain-for-arm-action@v1
+      with:
+        release: ${{ inputs.ref }}
+        path-env-var: TOOLCHAIN_PATH
