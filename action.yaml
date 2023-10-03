@@ -21,15 +21,17 @@ runs:
   steps:
     - name: 'Fetch compiler ${{ inputs.triple }}-${{ inputs.compiler }} ${{ inputs.ref }}'
       if: ${{ inputs.compiler == 'gcc' }} && ${{ inputs.triple == 'arm-none-eabi' }}
-      uses: embedded-devops/action-setup-compiler/arm-none-eabi-gcc@main
+      uses: carlosperate/arm-none-eabi-gcc-action@v1
       with:
-        ref: ${{ inputs.ref }}
+        release: ${{ inputs.ref }}
+        path-env-var: TOOLCHAIN_PATH
 
     - name: 'Fetch clang compiler for target ${{ inputs.triple }}, ${{ inputs.ref }}'
       if: ${{ inputs.compiler == 'clang' }} && ${{ inputs.triple == 'arm-none-eabi' }}
-      uses: embedded-devops/action-setup-compiler/llvm-embedded-toolchain-for-arm@main
+      uses: stellar-aria/llvm-embedded-toolchain-for-arm-action@v1
       with:
-        ref: ${{ inputs.ref }}
+        release: ${{ inputs.ref }}
+        path-env-var: TOOLCHAIN_PATH
 
     - name: Link toolchain dir to predictable path in container
       run: |
