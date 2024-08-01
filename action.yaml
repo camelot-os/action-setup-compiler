@@ -36,5 +36,6 @@ runs:
     - name: Link toolchain dir to predictable path in container
       run: |
         source=$(dirname $TOOLCHAIN_PATH)
-        ln -s $source /opt/${{ inputs.triple }}
+        mkdir -p $HOME/.local
+        ln -s $source $HOME/.local/${{ inputs.triple }}
       shell: bash
