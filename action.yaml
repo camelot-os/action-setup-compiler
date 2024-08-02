@@ -36,6 +36,5 @@ runs:
     - name: Link toolchain dir to predictable path in container
       run: |
         source=$(dirname $TOOLCHAIN_PATH)
-        mkdir -p $HOME/.local
-        ln -s $source $HOME/.local/${{ inputs.triple }}
+        ln -s $source ${{ github.workspace}}/${{ inputs.triple }}
       shell: bash
