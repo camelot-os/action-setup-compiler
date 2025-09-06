@@ -30,13 +30,6 @@ runs:
         release: ${{ inputs.ref }}
         path-env-var: TOOLCHAIN_PATH
 
-    - name: 'Fetch clang compiler for target ${{ inputs.triple }}, ${{ inputs.ref }}'
-      if: ${{ inputs.compiler == 'clang' && inputs.triple == 'arm-none-eabi' }}
-      uses: stellar-aria/llvm-embedded-toolchain-for-arm-action@v1
-      with:
-        release: ${{ inputs.ref }}
-        path-env-var: TOOLCHAIN_PATH
-
     - name: Link toolchain dir to predictable path in container
       run: |
         source=$(dirname $TOOLCHAIN_PATH)
